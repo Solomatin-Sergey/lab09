@@ -1,0 +1,25 @@
+language: cpp
+
+compiler:
+- gcc
+- clang  
+
+jobs:
+  include:
+  - name: "my_project"
+
+services:
+    - docker
+    
+script:
+    - cmake -H. -B_build
+    - cmake --build _build
+    - docker build -t logger .
+
+addons:
+  apt:
+    sources:
+      - george-edison55-precise-backports
+    packages:
+      - cmake
+      - cmake-data
